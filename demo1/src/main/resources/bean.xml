@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- 构造器实例化，调用默认的无参构造方法实例化bean -->
+    <!-- 使用 singleton 定义的 Bean 在 spring 容器中将只有一个实例， 也就是说，
+    无论有多少个 Bean 引用它，始终将指向同一个对象。 这也是 spring 容器默认的作用域 -->
+    <!-- 每次通过 spring 容器获取的 prototype 定义的 Bean 时，容器都将创建一个新的 Bean 实例 -->
+    <!--<bean id="user" class="spring.chapter01.User"></bean>-->
+
+    <!-- class不再是 Bean 实例的实现类，而是静态工厂类，
+    同时还需要使用 factory-method 属性来指定所创建的静态工厂方法 -->
+    <!--<bean id="staticbeanFactory" class="spring.chapter01.StaticBeanFactory" factory-method="getInstance"></bean>-->
+
+    <!-- 实例工厂方式实例化bean -->
+    <!--<bean id="beanFactory" class="spring.chapter01.BeanFactory"></bean>-->
+    <!--<bean id="user" factory-bean="beanFactory" factory-method="getInstance"></bean>-->
+
+    <!--************************************************************************************************-->
+
+    <!-- 注入方式 -->
+    <!-- set注入 -->
+    <!-- name="userService" 在UserController中属性的名称 -->
+    <bean id="usercontroller" class="spring.chapter01.UserController">
+        <property name="userService" ref="userService"/>
+    </bean>
+    <bean id="userService" class="spring.chapter01.UserServiceImpl"></bean>
+
+    <!-- 构造函数注入 -->
+    <!--<bean id="usercontroller" class="spring.chapter01.UserController">-->
+        <!--&lt;!&ndash; index是索引，当有多个参数的时候 &ndash;&gt;-->
+        <!--&lt;!&ndash; type可以设置参数类型/实例类型 &ndash;&gt;-->
+        <!--<constructor-arg ref="userService"/>-->
+    <!--</bean>-->
+    <!--<bean id="userService" class="spring.chapter01.UserServiceImpl"></bean>-->
+
+
+    <!-- 静态工厂方法注入，类似set注入 -->
+    <!--<bean id="userfactory" class="spring.chapter01.UserFactory" factory-method="getInstance"/>-->
+    <!--<bean id="usercontroller" class="spring.chapter01.UserController">-->
+        <!--<property name="userService" ref="userfactory"/>-->
+    <!--</bean>-->
+
+    <!-- Bean的装配开始 -->
+    <!-- 基于XML的set注入 -->
+    <bean id="user" class="spring.chapter01.User">
+        <property name="name" value="rp"/>
+        <property name="age" value="11"/>
+        <property name="list">
+            <list>
+                <value>"setValue01"</value>
+                <value>"setValue02"</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 基于XML的构造器注入 -->
+    <bean id="user1" class="spring.chapter01.User">
+        <constructor-arg index="0" value="rp01"/>
+        <constructor-arg index="1" value="21"/>
+        <constructor-arg index="2">
+        <list>
+            <value>"constructorValue01"</value>
+            <value>"constructorValue02"</value>
+        </list>
+        </constructor-arg>
+    </bean>
+
+
+    <!-- Bean的装配结束 -->
+
+</beans>

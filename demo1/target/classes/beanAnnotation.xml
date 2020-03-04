@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 在第7、8行添加了context 的约束信息，通过 <context:annotation-config/> 来开启注解处理器
+    最后分别定义3个Bean对应3个实例，于XML装配不同的是不需要子元素<property>-->
+    <!-- 使用context命名空间，在配置文件中开启相应的注解处理器 -->
+    <!--<context:annotation-config/>-->
+    <!--<bean id="loginDao" class="spring.chapter02.LoginDaoImpl"></bean>-->
+    <!--<bean id="loginService" class="spring.chapter02.LoginServiceImpl"></bean>-->
+    <!--<bean id="loginController" class="spring.chapter02.LoginController"></bean>-->
+
+    <!-- 上述spring 配置文件中的注解方式虽然较大程度的简化了XML文件中Bean的配置，但仍需要在Spring配置文件中一一
+     配置相应的Bean，为此spring注解提供了另外一种高效的注解配置方式（对包路径下的所有Bean文件进行扫描），
+     其配置方式如下：<context:component-scan base-package="Bean所在的包路径"/>
+     将14-16行的代码进行如下替换，需要注意的是spring4.0以上的版本需要导入 Spring AOP 的jar包-->
+    <!-- 使用context 命名空间，通知spring 扫描指定包下所有Bean类，进行注解解析
+    使用此包就不需要开启注解处理器了 <context:annotation-config/> -->
+    <context:component-scan base-package="spring.chapter02"/>
+
+</beans>
